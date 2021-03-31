@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-ssr-firebase",
+  "version": "0.1.0",
+  "description": "Nuxt.JS SSR ve Firebase Hosting Örneği",
+  "license": "MIT",
+  "author": "Fuat POYRAZ",
+  "repository": "https://github.com/ftpyz/nuxt-ssr-firebase",
+  "scripts": {
+    "dev": "cd \"src\" && yarn dev",
+    "build": "yarn build:nuxt && yarn clean && yarn copyassets",
+    "serve": "set NODE_ENV=development | firebase serve",
+    "deploy": "firebase deploy",
+    "predeploy": "yarn build",
+    "setup": "yarn install && yarn setup:nuxt && yarn setup:firebase",
+    "setup:nuxt": "cd \"src\" && yarn install",
+    "setup:firebase": "cd \"prod/firebase\" && yarn install",
+    "copyassets": "yarn copydist && yarn copystatic",
+    "copydist": "rsync -av prod/firebase/nuxt/dist/ prod/nuxt/assets",
+    "copystatic": "rsync -av src/static/ prod/nuxt",
+    "clean": "rimraf prod/nuxt/assets/* && rimraf prod/nuxt/*.*",
+    "build:nuxt": "cd \"src\" && yarn build"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5",
+    "rimraf": "^2.6.2"
+  }
+}
